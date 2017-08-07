@@ -35,3 +35,18 @@ Event模块常用的api有:
 + "route" (route, params) — Fired by the router when any route has been matched.
 + "route" (router, route, params) — Fired by history when any route has been matched.
 + "all" — this special event fires for any triggered event, passing the event name as the first argument followed by all trigger arguments.
+
+在Backbone的实现中, Collection监听了Model上面的所有事件
+```js
+
+var col = new Backbone.Collection([{ id: 'a'}, { id: 'b']);
+var a = col.get('a');
+
+col.on('change', function(){ console.log('collection change')})
+a.on('change', function(){ console.log('Model change')})
+
+a.set('name','jack')
+// print 
+// Model change
+// collection change
+```
