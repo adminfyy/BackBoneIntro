@@ -47,5 +47,5 @@ a.on('change', function(){ console.log('Model change')})
 a.set('name','jack')
 // print 
 // Model change
-// collection change
+// Collection change
 ```
