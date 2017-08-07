@@ -1,4 +1,4 @@
-# Backbone讲解入门
+# Backbone 使用经验分享
 Back主要包含下面几个模块，
 ## Backbone.Event 事件模式
 Event是View跟Model还有Collection的基础，它主要实现了事件模式/又可以成为订阅发布系统[个人理解];  
