@@ -8,15 +8,16 @@ Event是View跟Model还有Collection的基础，它主要实现了事件模式(�
 >“事件模式是一个良好的解耦模式”
 
 Event模块常用的api有:
-    Event.on
+`   Event.on
     Event.off
     Event.trigger
     Event.once
     Event.listenTo
     Event.listenToOnce
     Event.stopListening
-    
+    `
 另外Model/Collection也具备上面的方法,在Model/Collection内置的方法中,一些操作数据的方法会触发特定的事件,事件列表如下：
+
 + "add" (model, collection, options) — when a model is added to a collection.
 + "remove" (model, collection, options) — when a model is removed from a collection.
 + "update" (collection, options) — single event triggered after any number of models have been added or removed from a collection.
