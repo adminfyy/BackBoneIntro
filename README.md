@@ -1,5 +1,5 @@
 # Backbone 使用经验分享
-[Backbone](http://backbonejs.org/#Events-catalog)主要包含下面几个模块，
+[Backbone](http://backbonejs.org)主要包含下面几个模块，
 ## Backbone.Event 事件模式
 Event是View跟Model还有Collection的基础，它主要实现了事件模式(订阅发布系统),个人理解;  
 只要将Event模式集成到任何对象里面，这个对象就具备的Event的API;   
