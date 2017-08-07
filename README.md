@@ -39,7 +39,7 @@ Event模块常用的api有:
 在Backbone的实现中, Collection监听了Model上面的所有事件
 ```js
 
-var col = new Backbone.Collection([{ id: 'a'}, { id: 'b']);
+var col = new Backbone.Collection([{ id: 'a'}, { id: 'b'}]);
 var a = col.get('a');
 
 col.on('change', function(){ console.log('collection change')})
