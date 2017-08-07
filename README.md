@@ -1,11 +1,12 @@
 # Backbone 使用经验分享
-Backbone(http://backbonejs.org/#Events-catalog)主要包含下面几个模块，
+[Backbone](http://backbonejs.org/#Events-catalog)主要包含下面几个模块，
 ## Backbone.Event 事件模式
-Event是View跟Model还有Collection的基础，它主要实现了事件模式(订阅发布系统)[个人理解];  
+Event是View跟Model还有Collection的基础，它主要实现了事件模式(订阅发布系统),个人理解;  
 只要将Event模式集成到任何对象里面，这个对象就具备的Event的API;   
 当有两个模块或者两个对象相互关联的时候，通过模式解耦之后，在这种模式下，每个对象只需要关注自身的数据以及方法，对于另外一个模块需要的就是一个信号以及数据;
 引用前辈给我讲得一句话：  
 >“事件模式是一个良好的解耦模式”
+
 Event模块常用的api有:
     Event.on
     Event.off
@@ -14,6 +15,7 @@ Event模块常用的api有:
     Event.listenTo
     Event.listenToOnce
     Event.stopListening
+    
 另外Model/Collection也具备上面的方法,在Model/Collection内置的方法中,一些操作数据的方法会触发特定的事件,事件列表如下：
 +"add" (model, collection, options) — when a model is added to a collection.
 +"remove" (model, collection, options) — when a model is removed from a collection.
