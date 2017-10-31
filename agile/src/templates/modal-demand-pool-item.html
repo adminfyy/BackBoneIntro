@@ -1,0 +1,299 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="taskDetailLabel">需求详情页
+                <% if(typeof pmsUrl != 'undefined'  && pmsUrl) {%>
+                <a href="<%= pmsUrl%>" target="_blank">PMS链接</a>&nbsp;&nbsp;&nbsp;
+                <% } %>
+                <% if(typeof issueKey != 'undefined' && issueKey) {%>
+                <a href="<%= jiraUrl%>/browse/<%= issueKey%>" target="_blank">JIRA链接</a>
+                <% } %>
+            </h4>
+        </div>
+        <form class="modal-body" style="max-height: 480px;overflow: auto">
+            <div class="flex">
+                <div class="flex">
+                    <label for="subject" class="state <%= state %>"><%= state %></label>
+                    <input id="subject" name="subject" class="no-border" value="<%= subject%>"
+                           style="width: 500px;" <%= typeof issueKey !== 'undefined' ? 'readonly': '' %> />
+                </div>
+                <% if(!reqState) {%>
+                <div class="flex">
+                    <% if(typeof canSplit !== 'undefined' && canSplit || typeof isHasChild !== 'undefined'){ %>
+                    <button type="button" class="split-btn" role="split">拆分</button>
+                    <% } %>
+
+                    <% if(typeof canBack !== 'undefined' &&canBack || typeof isHasChild !== 'undefined' && !isHasChild){
+                    %>
+                    <!--<button type="button" class="white-btn">打回</button>-->
+                    <% } %>
+
+                    <% if(typeof canCancel !== 'undefined' &&canCancel || typeof isHasChild !== 'undefined' &&
+                    !isHasChild){ %>
+                    <!--<button type="button" class="white-btn">作废</button>-->
+                    <% } %>
+                    <% if(typeof canDelete !== 'undefined' &&canDelete){ %>
+                    <button type="button" class="white-btn" role="delete">删除</button>
+                    <% } %>
+                </div>
+                <% } %>
+            </div>
+            <div class="task-detail">
+                <div class="task-detail-wrap" <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">执行者</h6>
+                    <select name="assignerId" id="assignerId" class="border-transparent"></select>
+                </div>
+
+                <div class="task-detail-wrap" <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">截止时间</h6>
+                    <input class="form-control border-transparent" plugin='date-picker' id="planPublishDate"
+                           type="date" placeholder="请选择日期" name="planPublishDate" value="<%= planPublishDate %>"/>
+                </div>
+
+                <div class="task-detail-wrap" <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">优先级</h6>
+                    <select name="priority" id="priority" class="border-transparent">
+                    </select>
+                </div>
+
+                <div class="task-detail-wrap"  <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">故事点</h6>
+                    <input class="form-control border-transparent" name="storyNum" value="<%= storyNum %>">
+                </div>
+
+                <div class="task-detail-wrap" readonly %>
+                    <h6 class="task-info-title">类型</h6>
+                    <select name="issueType" id="issueType" class="border-transparent">
+                    </select>
+                </div>
+
+                <div class="task-detail-wrap"  <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">是否紧急</h6>
+                    <input type="checkbox" name="emergency" id="emergency" class="switcher" style="margin-top: 4px;"/>
+                </div>
+
+                <div class="task-detail-wrap"  <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">是否跨组件</h6>
+                    <input type="checkbox" name="isMultiComponent" id="isMultiComponent" style="margin-top: 4px;"
+                           class="switcher "/>
+                </div>
+
+                <div class="task-detail-wrap"  <%= isEditable ? 'readonly':'' %> >
+                    <h6 class="task-info-title">组件</h6>
+                    <input  type="text" id="component" name="component" style="border: none;" autocomplete="off" />
+                    <ul class="ztree" id="componentName"  name="componentName" style="top: 120px;width: 190px;max-height: 280px;z-index: 10;"></ul>
+                </div>
+
+                <div class="task-detail-wrap"  readonly >
+                    <h6 class="task-info-title">原始需求提出者</h6>
+                    <input class="border-transparent" name="submitter" value="<%= submitter %>" readonly>
+                </div>
+            </div>
+            <% if(typeof versionList !== 'undefined'){ %>
+            <div class="task-detail" >
+                <div class="task-detail-wrap rowNowrap"  style="background: #eee">
+                    <h6 class="version-info-title" >版本：&nbsp;&nbsp;</h6>
+                    <input id="versionId" class="border-transparent" placeholder="未规划版本" readonly value="<%= typeof versionList[0] != 'undefined' ? versionList[0].name : '未规划版本'%>">
+                </div>
+                <div class="task-detail-wrap rowNowrap"  style="background: #eee" >
+                    <h6 class="version-info-title">预期发布时间：</h6>
+                    <input id="version-date" class="border-transparent" placeholder="未设定" readonly>
+                </div>
+                <div class="task-detail-wrap rowNowrap"  style="background: #eee" >
+                    <h6 class="version-info-title">发布状态：</h6>
+                    <input id="version-state" class="border-transparent" placeholder="未设定" readonly/>
+                </div>
+            </div>
+            <% } %>
+
+            <% if(canShowKeyWords && (gradeArea || isSensive || isKeyBusiness || isCompetition || isPotential ||
+            isOther)){%>
+            <div class="detail-row flex column stretch">
+                <div class="flex preview">
+                        <span class="glyphicon glyphicon-user">
+                            <% if(gradeArea){ %>
+                                <span class="tags"><%= gradeArea%></span>
+                            <% } %>
+                            <% if(isSensive){ %>
+                                <span class="tags">敏感客户</span>
+                            <% } %>
+                            <% if(isKeyBusiness){ %>
+                                <span class="tags">关系客户关键业务</span>
+                            <% } %>
+                            <% if(isCompetition){ %>
+                                <span class="tags">和友商在竞争</span>
+                            <% } %>
+                            <% if(isPotential){ %>
+                                <span class="tags">潜力客户</span>
+                            <% } %>
+                            <% if(isOther){ %>
+                                <span class="tags">其他原因（具体）</span>
+                            <% } %>
+                        </span>
+                    <span class="view-detail-handle" data-toggle="collapse" data-target="#demand-type-info">查看详情</span>
+                </div>
+                <div class="collapse" id="demand-type-info">
+                    <hr/>
+                    <% if(gradeArea){ %>
+                    <p><span class="tags"><%= gradeArea%></span></p>
+                    <p class="customer-info">客户等级区间：<%= gradeArea %></p>
+                    <% } %>
+                    <% if(isSensive){ %>
+                    <p><span class="tags">敏感客户</span></p>
+                    <p class="customer-info">理由：<%= sensiveReason %></p>
+                    <% } %>
+                    <% if(isKeyBusiness){ %>
+                    <p><span class="tags">关系客户关键业务</span></p>
+                    <p class="customer-info">理由：<%= keyBusinessReason %></p>
+                    <% } %>
+                    <% if(isCompetition){ %>
+                    <p><span class="tags">和友商在竞争</span></p>
+                    <p class="customer-info">竞争情况：<%= competitionSituation %></p>
+                    <% } %>
+                    <% if(isPotential){ %>
+                    <p><span class="tags">潜力客户</span></p>
+                    <p class="customer-info">理由：<%= potentialReason %></p>
+                    <% } %>
+                    <% if(isOther){ %>
+                    <p><span class="tags">其他原因（具体）</span></p>
+                    <p class="customer-info">理由：<%= sensiveReason %></p>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+
+            <!--描述信息-->
+            <div class="task-detail-wrap" <%= isEditable  ? 'readonly':'' %>>
+                <div data-toggle="tooltip" title="点击可以编辑" id="description-preview"><% description.trim().length >0?print(description):print("请输入需求描述信息") %>
+                </div>
+            <textarea class="border-transparent hide" name="description" id="description" placeholder="请输入需求描述信息"
+            <%= isEditable  ? 'disabled':'' %>><%= description %></textarea>
+            </div>
+
+            <!--标签列表-->
+            <!--todo 标签结构　待重构　-->
+            <!--<form class="task-detail">-->
+            <!--<div class="task-detail-wrap">-->
+            <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签列表</h6>-->
+            <!--<select name="reqTagList" id="reqTagList" multiple="multiple" data-placeholder=" 添加标签"></select>-->
+            <!--</div>-->
+            <!--</form>-->
+
+            <!--关联内容-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;关联内容</h6>
+                    <select name="reqRelateList" id="reqRelateList" multiple="multiple"
+                            data-placeholder=" 添加关联内容"></select>
+                </div>
+            </div>
+
+            <!-- ac列表-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;AC列表</h6>
+                    <div class="acList">
+                        <ul class="ac-list"></ul>
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加AC</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- 整体解决方案-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;整体解决方案</h6>
+                    <div class="totalSolution">
+                        <ul class="ac-list"></ul>
+
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <div class="col-sm-6">
+                                    <textarea class="ts-text1 form-control" rows="1" placeholder="请填写方案名"></textarea>
+                                </div>
+                                <div class="col-sm-6">
+                                    <textarea class="ts-text2 form-control" rows="1" placeholder="请添加链接"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加整体解决方案</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- 附件列表-->
+            <div class="task-detail" enctype="multipart/form-data">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;附件内容</h6>
+                    <div class="attachmentList">
+                        <ul class="list"></ul>
+                        <div class="fileHandle">
+                            <!--proejctkey 为字段名称限制-->
+                            <input type="file" name="file" id="file">
+                            <input type="hidden" name="projectKey"
+                                   value="<% print('id/'+ id) %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<input type="text" placeholder="原始需求树-"/>-->
+            <ul class="tree-view ztree" id="tree-view"></ul>
+
+            <!-- 备注-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;备注</h6>
+                    <div class="reqCommentList">
+                        <ul class="ac-list"></ul>
+
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加备注</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" role="save">保存</button>
+        </div>
+    </div>
+</div>

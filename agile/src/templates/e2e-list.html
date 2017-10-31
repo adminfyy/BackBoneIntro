@@ -1,0 +1,227 @@
+<style>
+    .e2e {
+        width: 100%;
+        font-size: unset;
+    }
+    .e2e a:hover,.e2e a.hover{
+        color: #337ab7;
+        text-decoration: underline;
+    }
+
+    .e2e th {
+        text-align: center;
+    }
+
+    .e2e > thead > tr > th,
+    .e2e > tbody > tr > td {
+        padding: 4px 4px;
+        border: 1px solid #ddd;
+    }
+
+    .e2e > thead > tr > th,
+    .e2e > thead > tr > td {
+        background: rgba(246, 249, 254, 1);
+    }
+
+    tr:hover,
+    tr.hover {
+        background: rgba(242, 242, 242, 1);
+    }
+
+    [class*='-line'] {
+        position: relative;
+    }
+
+    [class*='-line']:before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        top: 50%;
+    }
+
+    .normal-line:before {
+        background: rgba(56, 173, 250, 1);
+    }
+
+    .overtime-line:before {
+        background: rgba(254, 113, 110, 1);
+    }
+
+    .history-overtime {
+        position: relative;
+    }
+
+    .history-overtime:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-top: 15px solid rgba(254, 113, 110, 1);
+        border-right: 15px solid transparent;
+    }
+
+    .observation.history-overtime:before {
+        border-top-color: #acacac;
+    }
+
+    .warning-bg {
+        background: rgba(255, 241, 241, 1);
+        border: 1px double #ff5d59;
+        color: #FE716E;
+    }
+
+    .observation {
+        background: rgba(242, 242, 242, 1);
+        color: #aaa;
+    }
+
+    .observation:hover,
+    .observation.hover {
+        background: rgba(228, 228, 228, 1);
+    }
+
+    .overtime,
+    .normal {
+        color: white;
+    }
+
+    .overtime-color {
+        color: #FE716E;
+    }
+
+    .overtime {
+        background: rgba(254, 113, 110, 1);
+    }
+
+    .normal {
+        background: rgba(56, 173, 250, 1);
+    }
+
+    .observation.normal,
+    .observation.overtime {
+        background: rgba(204, 204, 204, 1);
+    }
+
+    .state {
+        /*word-break: break-all;*/
+    }
+
+    .state.state-0,
+    .state.state-2,
+    .state.state-3,
+    .state.state-5 {
+        border-right: 1px dashed #eee;
+    }
+
+    .state.state-1,
+    .state.state-3,
+    .state.state-4,
+    .state.state-6 {
+        border-left: 1px dashed #eee;
+    }
+
+    .e2e > tbody > tr > td[class*='state-']:last-child {
+        border-right: 1px solid #ddd;
+    }
+
+    .e2e .warning-bg:hover,
+    .warning-bg.hover {
+        background: rgba(255, 226, 227, 1);
+    }
+</style>
+
+<table class="e2e" style="table-layout:fixed; width:100%;">
+    <thead>
+    <tr style="height: 0;">
+        <td width="90">
+        </td>
+        <td width="90">
+        </td>
+        <td width="70"></td>
+        <td></td>
+        <td width="92"></td>
+        <td width="85"></td>
+        <td width="80"></td>
+        <td width="80"></td>
+        <td width="85"></td>
+        <td width="80"></td>
+        <td width="80"></td>
+        <td width="80"></td>
+        <td width="85"></td>
+        <td width="80"></td>
+        <td width="80"></td>
+    </tr>
+    <tr>
+        <th colspan="5">目标：平均30天交付！</th>
+        <th colspan="2">需求方·1天</th>
+        <th colspan="3">PO·7天</th>
+        <th colspan="2">研发经理·15天</th>
+        <th>运维·7天</th>
+        <th>需求方·7天</th>
+        <th>需求方·14天</th>
+    </tr>
+    <tr>
+        <th>
+            用户期望
+            <span class="glyphicon glyphicon-triangle-bottom reverse" role="expect-time"></span>
+        </th>
+        <th>
+            创建时间
+            <span class="glyphicon glyphicon-triangle-bottom" role="create-time"></span>
+        </th>
+        <th>PMS单号</th>
+        <th>产品级PB</th>
+        <th>主导PO</th>
+        <th>客户提出</th>
+        <th>需求审核</th>
+        <th>需求确认</th>
+        <th>需求就绪</th>
+        <th>已规划版本</th>
+        <th>研发中</th>
+        <th>已发布</th>
+        <th>部署上线</th>
+        <th>客户验收</th>
+        <th>观察期</th>
+    </tr>
+    </thead>
+
+    <tfoot>
+    <tr>
+        <td colspan="3" class="text-right">
+            <a href="#">
+                共&nbsp<span role="total-count">0</span>&nbsp条记录,
+                每页显示&nbsp
+                <select role="page-size">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>&nbsp条记录
+            </a>
+        </td>
+        <td colspan="12" class="text-right">
+            <ul class="pagination" role="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">上一页</span>
+                    </a>
+                </li>
+
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">下一页</span>
+                    </a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    </tbody>
+</table>

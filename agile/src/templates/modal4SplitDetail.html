@@ -1,0 +1,147 @@
+<!--<form class="task-detail">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<input class="border-transparent " id="subject" name="subject" placeholder="请输入子需求" value="<%= subject%>">-->
+    <!--</div>-->
+<!--</form>-->
+<!--<form class="task-detail">-->
+
+    <!--&lt;!&ndash;<div class="input">&ndash;&gt;-->
+    <!--&lt;!&ndash;<input name="subject" value="<%= subject %>">&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title">执行者</h6>-->
+        <!--<select name="assigner" id="assigner" class="border-transparent"></select>-->
+    <!--</div>-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title">截止日期</h6>-->
+        <!--<input class="form-control border-transparent" plugin='date-picker' id="planPublishDate" name="planPublishDate"-->
+               <!--value="<%= planPublishDate %>">-->
+    <!--</div>-->
+    <!--<div class="task-detail-wrap-min">-->
+        <!--<h6 class="task-info-title">优先级</h6>-->
+        <!--<select name="priority" id="priority" class="border-transparent">-->
+            <!--<option value="1"-->
+            <!--<% priority==1 ? print('selected'): '' %> >最高</option>-->
+            <!--<option value="2"-->
+            <!--<% priority==2 ? print('selected'): '' %> >高</option>-->
+            <!--<option value="3"-->
+            <!--<% priority==3 ? print('selected'): '' %> >中</option>-->
+            <!--<option value="4"-->
+            <!--<% priority==4 ? print('selected'): '' %> >低</option>-->
+        <!--</select>-->
+    <!--</div>-->
+    <!--<div class="task-detail-wrap-min">-->
+        <!--<h6 class="task-info-title">故事点</h6>-->
+        <!--<input class="border-transparent" id='storyNum' name="storyNum"-->
+               <!--value='<% storyNum?print(storyNum):print("0")  %>'>-->
+    <!--</div>-->
+    <!--<div class="task-detail-wrap-min">-->
+        <!--<h6 class="task-info-title">类型</h6>-->
+        <!--<select name="issueType" id="issueType" class="border-transparent">-->
+            <!--<option value="1"-->
+            <!--<% issueType==1 ? print('selected'): '' %>>需求</option>-->
+            <!--<option value="2"-->
+            <!--<% issueType==2 ? print('selected'): '' %>>缺陷</option>-->
+            <!--<option value="3"-->
+            <!--<% issueType==3 ? print('selected'): '' %>>任务排查</option>-->
+            <!--<option value="4"-->
+            <!--<% issueType==4 ? print('selected'): '' %>>简单任务</option>-->
+            <!--<option value="5"-->
+            <!--<% issueType==5 ? print('selected'): '' %>>组内需求</option>-->
+        <!--</select></div>-->
+
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title">原始需求提出者</h6>-->
+        <!--<input id='submitter' class="form-control border-transparent" name="submitter" value="<%= submitter %>"-->
+               <!--readonly>-->
+    <!--</div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash;描述信息&ndash;&gt;-->
+<!--<form class="task-detail">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<textarea id="description" class="border-transparent hide" name="description" placeholder="请输入需求描述信息"-->
+                  <!--autofocus></textarea>-->
+    <!--</div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash;标签列表&ndash;&gt;-->
+<!--<form class="task-detail">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签列表</h6>-->
+        <!--<select id="reqTagList" name="reqTagList" multiple="multiple" data-placeholder=" 添加标签">-->
+        <!--</select>-->
+    <!--</div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash;关联内容&ndash;&gt;-->
+<!--<form class="task-detail">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;关联内容</h6>-->
+        <!--<select id="reqRelateList" name="reqRelateList" multiple="multiple" data-placeholder=" 添加关联内容"></select>-->
+    <!--</div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; ac列表&ndash;&gt;-->
+<!--<form class="task-detail">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;AC列表</h6>-->
+        <!--<div class="acList">-->
+            <!--<ul class="ac-list"></ul>-->
+
+            <!--<div class="creator">-->
+                <!--<div class="form-group">-->
+                    <!--<textarea class="ac-text form-control"></textarea>-->
+                <!--</div>-->
+
+                <!--<div class="form-group text-right">-->
+                    <!--<button class="btn btn-primary" role="ac-save">保存</button>-->
+                    <!--<button class="btn btn-default" role="cancel">取消</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div class="create-handle">-->
+                <!--<span class="glyphicon glyphicon-plus-sign"></span>-->
+                <!--<span class="create-handle-label">添加AC</span>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
+
+
+<!--&lt;!&ndash; 附件列表&ndash;&gt;-->
+<!--<form class="task-detail" enctype="multipart/form-data">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;附件内容</h6>-->
+        <!--<div class="attachmentList">-->
+            <!--<ul class="list"></ul>-->
+            <!--<div class="fileHandle">-->
+                <!--&lt;!&ndash;proejctkey 为字段名称限制&ndash;&gt;-->
+                <!--<input type="file" name="file" id="file">-->
+                <!--<input style="display: none" type="text" name="projectKey" value="<% print('teamid/'+ teamId) %>">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash;参与者&ndash;&gt;-->
+<!--<form class="task-detail">-->
+    <!--<div class="task-detail-wrap">-->
+        <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-user"></span>&nbsp;参与者</h6>-->
+        <!--<select name="reqPartyList" id="reqPartyList" multiple data-placeholder="请选择参与者">-->
+            <!--<% if(reqPartyList){ reqPartyList.forEach(function(i){%>-->
+            <!--<option value="<%= i.userId %>"><%= i.userName %></option>-->
+            <!--<% }) } %>-->
+        <!--</select>-->
+    <!--</div>-->
+<!--</form>-->
+
+<!--<form class="hide">-->
+    <!--<input id="parentId" name="parentId" value="<%= parentId %>">-->
+    <!--<input id="issueKey" name="issueKey" value="<%= issueKey %>">-->
+    <!--<input id="teamId" name="teamId" value="<%= teamId %>">-->
+<!--</form>-->
+ 

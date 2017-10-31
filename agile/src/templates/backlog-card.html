@@ -1,0 +1,35 @@
+<div class="task-priority p<%= priority %>"></div>
+<% if((parentId == 0 || parentId == null) && isSplit) { %>
+<div class="child-toggle">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+</div>
+<% } %>
+
+<div class="flex jc-space-between">
+    <span class="title-wrap">
+        <img class="icon" src="<%= rootPath %>/images/issueicon/<%= issueType || 2 %>.png">
+        <span class="title title-22"><%= subject %></span>
+         <span class="state <%= state %>"><%= state %></span>
+    </span>
+    <span class="assigner"><%= assigner %></span>
+</div>
+
+<div class="flex jc-space-between">
+    <div class="flex-item-wrap start">
+        <% planPublishDate ?
+        print('<span class="date" style="text-align: right">' + new Date(planPublishDate).format('yyyy-MM-dd') + '&nbsp截止</span>')
+        : print('')%>
+        <% if(tagName){ %>
+        <div class="flex-item-wrap">
+            <%
+            var tags = tagName.split(',');
+            var tagEls = tags.map(function(tag){
+            return '<span class="tags">' + tag + '</span>'})
+            print(tagEls.splice(0,2).join(''))
+
+            %>
+        </div>
+        <% } %>
+    </div>
+
+</div>

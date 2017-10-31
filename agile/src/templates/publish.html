@@ -1,0 +1,355 @@
+<style>
+    .form-horizontal .form-group {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+</style>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">发布版本: <%= name%></h4>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <form class="row" id="pubType">
+                    <input name="id" type="hidden" value="<%= id %>">
+                    <input name="state" type="hidden" value="<%= state %>">
+                    <input name="parentId" type="hidden" value="<%= parentId %>">
+                    <input name="name" type="hidden" value="<%= name %>">
+
+                    <div class="col-md-4">
+                        <input name="target" type="radio" value="0" checked>发布到内部
+                    </div>
+                    <div class="col-md-4">
+                        <input name="target" type="radio" value="1">预发布到PMS
+                    </div>
+                    <div class="col-md-4">
+                        <input name="target" type="radio" value="2">正式发布到PMS
+                    </div>
+                </form>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <form id="prePub" class="hide row form-horizontal" style="max-height:400px;overflow-x:hidden">
+                    <div class="form-group hide">
+                        <label class="control-label col-sm-2">计划发布版本<font color="red">*</font>:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="planversion" name="planversion" type="text" maxlength="60"
+                                   size="30" value="<%= name%>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">所属组件<font color="red">*</font>:</label>
+                        <div class="col-sm-8">
+                            <select class="prePubCom form-control" id="product" name="product" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">计划时间<font color="red">*</font>:</label>
+                        <div class="col-sm-8">
+                            <input id="sprintRange" class="form-control" readonly style="background-color:#eee">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">描述信息:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control text" placeholder="请输入描述信息" name="planDescript"
+                                      id="planDescript" style="background-color:#eee"
+                                      readonly><%= description%></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">需求清单:</label>
+                        <div class="col-sm-8">
+                            <select id="reqlistspan" name="reqlistspan" class="form-control" multiple="multiple"
+                                    style="width:100%" disabled></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">缺陷清单:</label>
+                        <div class="col-sm-8">
+                            <select id="buglistspan" name="buglistspan" class="form-control" multiple="multiple"
+                                    style="width:100%;border:1px" disabled></select>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="pub2PMS" class="hide row form-horizontal" style="max-height:400px;overflow-x:hidden">
+                    <div class="form-group" id="chkResultDiv">
+                        <label class="control-label col-sm-2">版本类型<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <div class="col-md-4">
+                                <input name="verType" type="radio" value="1" checked>正常发布
+                            </div>
+                            <div class="col-md-4">
+                                <input name="verType" type="radio" value="2">紧急发布
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="reason1Div" style="display: none">
+                        <label class="control-label col-sm-2">紧急发布理由<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <div class="col-md-4">
+                                <input name="reason1" type="radio" value="1" checked>影响线上整体服务
+                            </div>
+                            <div class="col-md-4">
+                                <input name="reason1" type="radio" value="2">客户紧急需求
+                            </div>
+                            <div class="col-md-4">
+                                <input name="reason1" type="radio" value="3">其他
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="reason2Div" style="display: none">
+                        <label class="control-label col-sm-2">理由说明<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="reason2" id="reason2" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">所属组件<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <select class="prePubCom form-control" id="product" name="product" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">资料审核人<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <select class="pmsUsers form-control" id="handler" name="handler" style="width:100%">
+                                <option value=""></option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="chkResultDiv">
+                        <label class="control-label col-sm-2">测试通过<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <div class="col-md-4">
+                                <input name="testSuccess" type="radio" value="1" checked>通过
+                            </div>
+                            <div class="col-md-4">
+                                <input name="testSuccess" type="radio" value="2">不通过
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">发布类别<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="releaseType" name="releaseType">
+                                <option value="1" selected>常规发布</option>
+                                <option value="2">数据库 & 第三方软件升级</option>
+                                <option value="3">联调版本</option>
+                                <option value="4">Debug版本</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <style>
+                        .software, .software-list, .software-item {
+                            border: 1px solid #d9d9d9;
+                            margin: 0;
+                        }
+
+                        .software .row {
+                            margin: 0;
+                        }
+
+                        .software-list {
+                            margin: 1em;
+                            padding: 1em;
+                        }
+
+                        .software-item {
+                            margin-bottom: 10px;
+                        }
+
+                        [role=add-software] {
+                            height: 2em;
+                            line-height: 2em;
+                            padding: 0 1em;
+                            color: white;
+                            background: skyblue;
+                            cursor: pointer;
+                        }
+
+                    </style>
+
+                    <div class="form-group ">
+                        <label class="control-label col-sm-2">软件包信息<font color="red">*</font>:</label>
+                        <div class="col-sm-10 ">
+                            <div class="row software">
+                                <label class="row" role="add-software">添加软件包</label>
+                                <ul class="row software-list">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">期望线上测试时间:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="testTime" maxlength="60" size="30">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">升级内容<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="请输入信息" name="upgradeContent"
+                                      id="upgradeContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">升级操作步骤<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="请输入信息" name="upgradeStep"
+                                      id="upgradeStep"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">升级影响范围<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="请输入信息" name="effect"
+                                      id="effect"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">升级风险<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="请输入信息" name="hazard"
+                                      id="hazard"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">升级依赖/要求:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="请输入信息" name="depend"
+                                      id="depend"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" id="chkResultDiv">
+                        <label class="control-label col-sm-2">升级部署是否通过<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <div class="col-md-4">
+                                <input name="verify_deploy" id="verify_deploy" type="radio" value="1" checked>通过
+                            </div>
+                            <div class="col-md-4">
+                                <input name="verify_deploy" id="verify_deploy" type="radio" value="2">不通过
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="chkResultDiv">
+                        <label class="control-label col-sm-2">回退方案是否通过<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <div class="col-md-4">
+                                <input name="verify_backplan" id="verify_backplan-1" type="radio" value="1" checked>通过
+                            </div>
+                            <div class="col-md-4">
+                                <input name="verify_backplan" id="verify_backplan-2" type="radio" value="2">不通过
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="isPatchVersionDiv">
+                        <label class="control-label col-sm-2">是否补丁版本<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <div class="col-md-4">
+                                <input name="isPatchVersion" id="isPatchVersion-1" type="radio" value="1" checked>是
+                            </div>
+                            <div class="col-md-4">
+                                <input name="isPatchVersion" id="isPatchVersion-2" type="radio" value="2">否
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="backPlavDiv">
+                        <label class="control-label col-sm-2">回退方案/操作步骤<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="backPlan" id="backPlan" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">抄送给:</label>
+                        <div class="col-sm-10">
+                            <select id="mailto" name="mailto" class="pmsUsers form-control" multiple="multiple"
+                                    style="width:100%"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">抄送邮箱:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="填写邮箱前缀，用','分隔。 例如： zhangs,lis"
+                                      name="emails" id="emails"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">安全测试报告<font color="red">*</font>:</label>
+                        <div class="col-sm-10">
+                            <input style="display: none" type="text" name="projectKey" value="tmp">
+                            <input class="fileUpload form-control" type="file" id="chkDocPath" size="40" name="file">&nbsp;<span
+                                id="chkDocPath_file"></span>
+                            <span id="chkDocPath_delete"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">测试文档:</label>
+                        <div class="col-sm-10">
+                            <input class="fileUpload form-control" type="file" id="testDocPath" size="40" name="file">&nbsp;<span
+                                id="testDocPath_file"></span>
+                            <span id="testDocPath_delete"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">技术白皮书:</label>
+                        <div class="col-sm-10">
+                            <input class="fileUpload form-control" type="file" id="techWhitePage" size="40" name="file">&nbsp;<span
+                                id="techWhitePage_file"></span>
+                            <span id="techWhitePage_delete"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">用户手册:</label>
+                        <div class="col-sm-10">
+                            <input class="fileUpload form-control" type="file" id="userManual" size="40" name="file">&nbsp;<span
+                                id="userManual_file"></span>
+                            <span id="userManual_delete"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">附件(50M,支持多附件)):</label>
+                        <div class="col-sm-10">
+                            <input class="fileUpload form-control" type="file" id="attachfiles" size="40" name="file">&nbsp;
+                            <ul id="attachList"></ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control text" placeholder="请填写备注" cols="80" rows="5" name="remarks"
+                                      id="remarks"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" role="send">发布</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</div>

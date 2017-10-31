@@ -1,0 +1,44 @@
+<div class="task-priority p<%= priority %>"></div>
+<% if(isSplit){ %>
+<div class="child-toggle">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+</div>
+<% } %>
+<div class="flex jc-space-between">
+    <span class="title-wrap">
+        <img class="icon" src="<%= rootPath %>/images/issueicon/<%= issueType||2 %>.png">
+        <span class="title"><%= subject %></span>
+		<span class="state <%= state %>"><%= state %></span>
+		<% if(isNew){ %>
+        <i>&nbsp<small style="color: red">new</small></i>
+		<% } %>
+
+    </span>
+    <span>
+        <span class="date"><%= planPublishDate ? new Date(planPublishDate).format("yyyy-MM-dd"): '[未设定]' %>&nbsp截止</span>
+        <span class="r-border"><strong><%= comName %></strong><%= (multiComName.length ? ('，' + multiComName) : ' ')  %></span>
+        <% if(canShowKeyWords) { %>
+        <% if(gradeArea){ %> <span class="tags"><%= gradeArea%></span> <%}%>
+        <% if(isSensive){ %> <span class="tags">敏感用户</span> <%}%>
+        <% if(isKeyBusiness){ %> <span class="tags">关键客户关键业务</span> <%}%>
+        <% if(isCompetition){ %> <span class="tags">和友商在竞争</span> <%}%>
+        <% if(isPotential){ %> <span class="tags">潜力客户</span> <%}%>
+        <% if(isOther){ %> <span class="tags">其他原因(具体)</span> <%}%>
+        <% } %>
+        <span class="r-border"></span>
+        <span class="badge"><%= assigner %></span>
+            <span data-toggle="dropdown" aria-haspopup="true" role="tools">
+                <span class="glyphicon glyphicon-option-horizontal"></span>
+            </span>
+        <% if(canSplit || canDelete)  {%>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <% if(canSplit){ %>
+                <li><a href="#" role="split">拆分</a></li>
+                <%}%>
+                <% if(canDelete){ %>
+                <li><a href="#" role="delete">删除</a></li>
+                <%}%>
+            </ul>
+        <% } %>
+	</span>
+</div>

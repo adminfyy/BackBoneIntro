@@ -1,0 +1,257 @@
+<div class="modal-dialog modal-lg" role="document">
+    <form class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <span>版本信息</span>
+        </div>
+
+        <div class="modal-body" style="max-height: 400px;overflow: auto">
+            <div class="form-horizontal">
+                <div class="hide">
+                    <input type="text" name="id" id="id" value="<%= id %>">
+                    <input type="text" name="teamId" id="teamId" value="<%= teamId %>">
+                    <input type="text" name="parentId" id="parentId" value="<%= parentId %>">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">父版本:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <input  type="text" id="parentVersionName" name="parentVersionName" class="form-control" autocomplete="off" placeholder="请选择父版本" />
+                            <ul class="ztree" id="parentVersionList" name="parentVersionList"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"><span class="text-danger">*</span>版本名称
+                        <a target="_blank" style="text-decoration: underline;color: #337ab7"
+                           href="http://wiki.ourplat.net/pages/viewpage.action?pageId=14255652">(规范)</a>:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <input name="name" id="name" type="text" class="form-control"
+                                   placeholder="如：RTC-1.0.0"
+                                   value="<%= name %>">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"><span class="text-danger">*</span>计划开始时间:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <input id="planStartDate" name="planStartDate" class="form-control" placeholder="请选择时间"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2"><span class="text-danger">*</span>预期发布时间:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <input id="planReleaseDate" name="planReleaseDate" class="form-control"
+                                   placeholder="请选择时间"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-md-2">计划上线时间:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <input id="planOnLineDate" name="planOnLineDate" class="form-control"
+                                   placeholder="请选择时间"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-md-2">计划提测时间:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <input id="planLiftTestDate" name="planLiftTestDate" class="form-control"
+                                   placeholder="请选择时间"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-md-2">版本负责人:</label>
+                    <div class="col-md-10">
+                        <div class="col-md-10">
+                            <select class="versionLiable form-control" id="versionLiable" name=versionLiable style="width:100%">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                <% if(state == 0) print('hidden') %> >
+                <label class="control-label col-md-2">实际发布日期:</label>
+                <div class="col-md-10">
+                    <div class="col-md-10">
+                        <input class="form-control" id="realReleaseDate" name="realReleaseDate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">描述信息:</label>
+                <div class="col-md-10">
+                    <div class="col-md-10">
+                                <textarea class="form-control text" placeholder="请输入版本描述信息" name="description"
+                                          id="description"><%= description %></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group"
+            <%if(!id)print('hidden') %>>
+            <label class="control-label col-md-2"><span class="text-danger">*</span>版本状态:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <select name="state" id="state" class="form-control" disabled
+                            style="width:200px;background-color:#transparent">
+                        <option value="0"
+                        <% state==0 ? print('selected'): '' %> >未发布</option>
+                        <option value="1"
+                        <% state==1 ? print('selected'): '' %> >已发布</option>
+                        <option value="2"
+                        <% state==2 ? print('selected'): '' %> >已归档</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <% if(pmsType){ %>
+        <!--版本升级/验收相关信息-->
+        <div class="form-group">
+            <label class="control-label col-md-2">PMS状态:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsStatus" id="pmsStatus"
+                           value="<%= pmsStatus %>"
+                           readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">PMS操作人员:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="handler" id="handler" value="<%= handler %>"
+                           readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">PMS操作时间:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="handlerTime" id="handlerTime"
+                           value="<%= handlerTime %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(pmsStartTime){%>
+        <div class="form-group">
+            <label class="control-label col-md-2">升级时间期限:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsRange" id="pmsRange"
+                           value="<% print(pmsStartTime + '至' + pmsEndTime) %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(pmsRemark){%>
+        <div class="form-group">
+            <label class="control-label col-md-2">升级说明信息:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsRemark" id="pmsRemark"
+                           value="<%= pmsRemark %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(pmsResult){%>
+        <div class="form-group">
+            <label class="control-label col-md-2">升级结果:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsResult" id="pmsResult"
+                           value="<%= pmsResult %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(pmsYsStartTime){ %>
+        <div class="form-group">
+            <label class="control-label col-md-2">验收时间期限:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsYsRange" id="pmsYsRange"
+                           value="<% print(pmsYsStartTime + '至' + pmsYsEndTime) %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+
+        <% if(pmsYsRemark){ %>
+        <div class="form-group">
+            <label class="control-label col-md-2">验收说明信息:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsYsRemark" id="pmsYsRemark"
+                           value="<%= pmsYsRemark %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(pmsYsResult){ %>
+        <div class="form-group">
+            <label class="control-label col-md-2">验收结果:</label>
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <input class="form-control text" placeholder="暂无" name="pmsYsResult" id="pmsYsResult"
+                           value="<%= pmsYsResult %>" readonly/>
+                </div>
+            </div>
+        </div>
+        <% } %>
+</div>
+</div>
+
+<div class="modal-footer">
+    <%if(!(state != 0 || id == -1)){%>
+    <button type="button" class="btn btn-primary" role="update-version">保存</button>
+    <% }%>
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</div>
+</form>
+</div>
+
+<script type="text/javascript">
+
+    var state = $("#state").val();
+
+    if (state != "0") {
+
+        $("#name").attr("disabled", "disabled");
+        $("#sprintRange").attr("disabled", "disabled");
+        $("#realReleaseDate").attr("disabled", "disabled");
+        $("#description").attr("disabled", "disabled");
+    }
+</script>

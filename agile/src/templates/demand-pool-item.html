@@ -1,0 +1,48 @@
+<div class="task-priority p<%= priority %>"></div>
+<% if(isSplit){ %>
+<div class="child-toggle">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+</div>
+<% } %>
+<div class="tools">
+    <i class="fa fa-angle-double-up" aria-hidden="true" title="置顶"></i>
+    <i class="fa fa-angle-double-down" aria-hidden="true" title="置底"></i>
+</div>
+<div class="flex jc-space-between">
+    <span class="title-wrap">
+        <img class="icon" src="<%= rootPath %>/images/issueicon/<%= issueType || 2 %>.png">
+        <span class="title title-22"><%= subject %></span>
+		<span class="state <%= state %>"><%= state %></span>
+		<% if(teamRank === null && !parentId){ %>
+        <i>&nbsp<small style="color: red">new</small></i>
+		<% } %>
+		<% if(isMultiComponent){ %>
+        <i>&nbsp<small style="color: red">跨</small></i>
+		<% } %>
+    </span>
+    <span class="flex" ext-info>
+            <span class="date"><%= planPublishDate ? new Date(planPublishDate).format("yyyy-MM-dd"): '未设定' %>&nbsp截止</span>
+            <span class="r-border"><%= versionList.length > 1 ? '多' : versionList.length > 0 ? versionList[0].name : '待规划'%>版本</span>
+            <span class="r-border relate-component"
+                  title="<%= comName + (multiComName? ','+multiComName:'') %>"><strong><%= comName %></strong><%= multiComName ? ('，' + multiComName) : '' %></span>
+            <span class="date"><%= versionList.length > 1 ? '多版本' : versionList.length > 0 ? versionList[0].planReleaseDate : '未设定'%>&nbsp预期发布</span>
+            <span class="badge"><%= assigner %></span>
+        <% if(!reqState) {%>
+            <span data-toggle="dropdown" aria-haspopup="true" role="tools">
+                <span class="glyphicon glyphicon-option-horizontal"></span>
+            </span>
+        <% } else { %>
+          <span style="display: inline-block;width: 34px;height: 23px;"></span>
+        <% } %>
+        <% if(canSplit || canDelete) {%>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <% if(canSplit){ %>
+                <li><a href="#" role="split">拆分</a></li>
+                <%}%>
+                <% if(canDelete){ %>
+                <li><a href="#" role="delete">删除</a></li>
+                <%}%>
+            </ul>
+        <% } %>
+     </span>
+</div>

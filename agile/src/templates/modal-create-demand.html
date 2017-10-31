@@ -1,0 +1,218 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="taskDetailLabel">新建需求</h4>
+        </div>
+        <form class="modal-body" style="max-height: 400px;overflow: auto">
+            <div class="flex">
+                <input class="form-contorl no-border" id="name" name="subject" value="<%= subject%>"
+                       placeholder="请输入标题" autocomplete="off" style="width:100%"/>
+            </div>
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">执行者</h6>
+                    <select name="assignerId" id="assignerId" class="border-transparent"></select>
+                </div>
+
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">截止时间</h6>
+                    <input class="form-control border-transparent" plugin='date-picker' id="planPublishDate"
+                           type="date" placeholder="请选择日期" name="planPublishDate" value="<%= planPublishDate %>"/>
+                </div>
+
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">优先级</h6>
+                    <select name="priority" id="priority" class="border-transparent">
+                    </select>
+                </div>
+
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">故事点</h6>
+                    <input class="form-control border-transparent" name="storyNum" value="<%= storyNum %>">
+                </div>
+
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">类型</h6>
+                    <select name="issueType" id="issueType" class="border-transparent">
+                    </select>
+                </div>
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">是否紧急</h6>
+                    <input type="checkbox" name="emergency" id="emergency" class="switcher border-transparent" />
+                </div>
+
+                <div class="task-detail-wrap" style="display:none;">
+                    <h6 class="task-info-title">是否跨组件</h6>
+                    <input type="checkbox" name="isMultiComponent" id="isMultiComponent" class="switcher border-transparent" />
+                </div>
+
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">组件</h6>
+                    <input  type="text" id="component" name="component" style="border: none;" autocomplete="off" />
+                    <ul class="ztree" id="componentName"  name="componentName" style="top: 118px;width: 190px;max-height: 280px;z-index: 10;"></ul>
+                </div>
+
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">原始需求提出者</h6>
+                    <input class="border-transparent" id="submitter" name="submitter"
+                           value="<%= submitter %>" readonly>
+                </div>
+            </div>
+            <!---->
+            <!--<div class="task-detail">-->
+            <!--<div class="task-detail-wrap">-->
+            <!--<h6 class="task-info-title">发布版本</h6>-->
+            <!--<select id="version" class="border-transparent"></select>-->
+            <!--</div>-->
+            <!--<div class="task-detail-wrap">-->
+            <!--<h6 class="task-info-title">发布时间</h6>-->
+            <!--<input id="version-date" class="border-transparent" readonly>-->
+            <!--</div>-->
+            <!--<div class="task-detail-wrap">-->
+            <!--<h6 class="task-info-title">发布状态</h6>-->
+            <!--<input id="version-state" class="border-transparent" readonly/>-->
+            <!--</div>-->
+            <!--<div class="task-detail-wrap">-->
+            <!--<h6 class="task-info-title">业务线</h6>-->
+            <!--<input id="buslineName" class="border-transparent" value="<%= buslineName %>" readonly/>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--描述信息-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <textarea class="border-transparent" name="description" id="description"
+                              placeholder="请输入需求描述信息"><%= description %></textarea>
+                </div>
+            </div>
+
+            <!--标签列表-->
+            <!--todo 标签结构　待重构　-->
+            <!--<form class="task-detail">-->
+            <!--<div class="task-detail-wrap">-->
+            <!--<h6 class="task-info-title"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签列表</h6>-->
+            <!--<select name="reqTagList" id="reqTagList" multiple="multiple" data-placeholder=" 添加标签"></select>-->
+            <!--</div>-->
+            <!--</form>-->
+
+            <!--关联内容-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;关联内容</h6>
+                    <select name="reqRelateList" id="reqRelateList" multiple="multiple"
+                            data-placeholder=" 添加关联内容"></select>
+                </div>
+            </div>
+
+            <!-- ac列表-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;AC列表</h6>
+                    <div class="acList">
+                        <ul class="ac-list"></ul>
+
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加AC</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- 整体解决方案-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;整体解决方案</h6>
+                    <div class="totalSolution">
+                        <ul class="ac-list"></ul>
+
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <div class="col-sm-1 solutionTitle solutionTitle-noSplit">方案名：</div>
+                                <div class="col-sm-4">
+                                    <textarea class="ts-text1 form-control" rows="1"></textarea>
+                                </div>
+                                <div class="col-sm-1 solutionTitle solutionTitle-noSplit">链接：</div>
+                                <div class="col-sm-6">
+                                    <textarea class="ts-text2 form-control" rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加整体解决方案</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- 附件列表-->
+            <div class="task-detail" enctype="multipart/form-data">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;附件内容</h6>
+                    <div class="attachmentList">
+                        <ul class="list"></ul>
+                        <div class="fileHandle">
+                            <!--proejctkey 为字段名称限制-->
+                            <input type="file" name="file" id="file">
+                            <input type="hidden" name="projectKey"
+                                   value="<% print('id/new') %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<input type="text" placeholder="原始需求树-"/>-->
+            <ul class="tree-view ztree"></ul>
+
+            <!-- 备注-->
+            <div class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;备注</h6>
+                    <div class="reqCommentList">
+                        <ul class="ac-list"></ul>
+
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加备注</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" role="save">保存</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,298 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="taskDetailLabel">需求详情页
+                <span class="glyphicon glyphicon-trash" role='delete'></span>
+                <% if(typeof pmsUrl != 'undefined' && pmsUrl) { %>
+                <a href="<%= pmsUrl%>" target="_blank">PMS链接</a>&nbsp;&nbsp;&nbsp;
+                <% } %>
+                <% if(typeof issueKey != 'undefined' && issueKey) { %>
+                <a href= "<%= jiraUrl%>/browse/<%= issueKey%>" target="_blank">JIRA链接</a>
+                <% } %>
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <form class="form-horizontal">
+                    <div class="form-group" style="margin-bottom: 0px">
+                        <div class="col-md-10">
+                            <input autocomplete="off" id="subject" name="subject" class="form-control"
+                                   value="<%= subject %>" <% if(reqState ==2) { %> readonly <% } %> >
+                        </div>
+                        <% if(!parentId && reqState != 2 && isVersionManagement !== '3') {  %>
+                        <div class="col-md-2 ">
+                            <button type="button" class="btn btn-primary" id="splitBtn">拆分</button>
+                        </div>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-body" style="max-height: 400px;overflow: auto">
+            <form class="task-detail">
+
+                <div class="task-detail-wrap"
+                <%= isItInSprintAndRunning ? 'readonly':'' %> >
+                <h6 class="task-info-title">执行者</h6>
+                <select name="assignerId" id="assignerId" class="border-transparent" <%= isItInSprintAndRunning ?
+                'disabled':'' %>></select>
+        </div>
+
+        <div class="task-detail-wrap"
+        <%= isItInSprintAndRunning ? 'readonly':'' %>>
+        <h6 class="task-info-title">截止时间</h6>
+        <input class="form-control border-transparent" plugin='date-picker' id="planPublishDate" name="planPublishDate"
+               value="<%= planPublishDate %>"
+        >
+    </div>
+
+    <div class="task-detail-wrap"
+    <%= isItInSprintAndRunning ? 'readonly':'' %>>
+    <h6 class="task-info-title">优先级</h6>
+    <select name="priority" id="priority" class="border-transparent" <%= isItInSprintAndRunning ? 'disabled':'' %>>
+    <option value="1"
+    <% priority===1 ? print('selected'): '' %> >最高</option>
+    <option value="2"
+    <% priority===2 ? print('selected'): '' %> >高</option>
+    <option value="3"
+    <% priority===3 ? print('selected'): '' %> >中</option>
+    <option value="4"
+    <% priority===4 ? print('selected'): '' %> >低</option>
+    </select>
+    <!--<input class="border-transparent" name="priority"  id="priority" value="<%= priority %>">-->
+</div>
+
+<div class="task-detail-wrap" <%= isItInSprintAndRunning ? 'readonly':'' %>>
+<h6 class="task-info-title">故事点</h6>
+<input class="form-control border-transparent" name="storyNum"
+       value="<%= storyNum %>" <%= isItInSprintAndRunning ? 'disabled':'' %>>
+</div>
+
+<div class="task-detail-wrap" readonly>
+<h6 class="task-info-title">类型</h6>
+<select name="issueType" id="issueType" class="border-transparent" disabled>
+</select>
+</div>
+
+<div class="task-detail-wrap" <%= isItInSprintAndRunning ? 'readonly':'' %>>
+<h6 class="task-info-title">是否紧急</h6>
+<select name="emergency" id="emergency" class="border-transparent" <%= isItInSprintAndRunning ? 'disabled':'' %>>
+<option value="1" <% emergency===1 ? print('selected'): '' %>>是</option>
+<option value="0"<% emergency===0 ? print('selected'): '' %>>否</option>
+</select>
+</div>
+
+<div class="task-detail-wrap" readonly>
+<h6 class="task-info-title">原始需求提出者</h6>
+<input class="border-transparent" name="submitter" value="<%= submitter %>"
+       readonly <%= isItInSprintAndRunning ? 'readonly':'' %>/>
+</div>
+
+</form>
+
+<!--版本信息-->
+<form class="task-detail flex ai-center start" style="background: #eee" >
+
+    <label for="versionId">版本：&nbsp</label>
+    <!--已发布-->
+    <label class="version-label"></label>
+
+    <!--未发布版本-->
+    <div class="version-id-wrap" style="display: none">
+        <select name="versionId" id="versionId" style="width: 15em;"></select>
+    </div>
+
+
+    <span class="version-detail">预期发布时间： <span id="version-plan-release-date"></span></span>
+    <span class="version-detail">版本状态：<span id="version-status"></span></span>
+</form>
+
+<!--描述信息-->
+<form class="task-detail">
+    <div class="task-detail-wrap"
+    <%= isItInSprintAndRunning ? 'readonly':'' %>>
+    <div data-toggle="tooltip" title="点击可以编辑" id="description-preview"><% description.trim().length >
+        0?print(description):print("请输入需求描述信息") %>
+    </div>
+    <textarea class="border-transparent hide" name="description" id="description" placeholder="请输入需求描述信息"<%=
+    isItInSprintAndRunning ? 'disabled':'' %>><%= description %></textarea>
+    </div>
+</form>
+<!--reqState ==2 已进入迭代的需求-->
+<% if(reqState==2){ %>
+<!--是否有BUG-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <div class="flex jc-space-between margin-1">
+                           <span class="fa fa-bug">
+                       &nbsp;有Bug</span>
+            <input class="switcher no-margin" type="checkbox" value="1" id="isBug" name="isBug" <% isBug==1 ?
+            print('checked'): '' %> />
+        </div>
+    </div>
+</form>
+
+<!-- 阻碍项-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;阻碍项</h6>
+        <div class="blockList">
+            <ul class="ac-list"></ul>
+
+            <div class="creator form-horizontal" style="display: block;">
+                <div class="col-sm-9">
+                    <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-default" role="cancel">取消</button>
+                    <button class="btn btn-primary" role="ac-save">保存</button>
+                </div>
+            </div>
+            <div class="create-handle">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                <span class="create-handle-label">添加阻碍项</span>
+            </div>
+
+        </div>
+    </div>
+</form>
+<% } %>
+
+<!--参与者-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-user"></span>&nbsp;参与者</h6>
+        <select name="reqPartyList" id="reqPartyList" multiple="multiple" data-placeholder=" 添加参与者"
+                class="border-transparent"></select>
+    </div>
+</form>
+
+<!--标签列表-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签列表</h6>
+        <select name="reqTagList" id="reqTagList" multiple="multiple" data-placeholder=" 添加标签"></select>
+    </div>
+</form>
+
+<!--关联内容-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;关联内容</h6>
+        <select name="reqRelateList" id="reqRelateList" multiple="multiple" data-placeholder=" 添加关联内容"></select>
+    </div>
+</form>
+
+<!-- ac列表-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;AC列表</h6>
+        <div class="acList">
+            <ul class="ac-list"></ul>
+            <div class="creator form-horizontal" style="display: block;">
+                <div class="col-sm-9">
+                    <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-default" role="cancel">取消</button>
+                    <button class="btn btn-primary" role="ac-save">保存</button>
+                </div>
+            </div>
+            <div class="create-handle">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                <span class="create-handle-label">添加AC</span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<!-- 整体解决方案-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;整体解决方案</h6>
+        <div class="totalSolution">
+            <ul class="ac-list"></ul>
+
+            <div class="creator form-horizontal" style="display: block;">
+                <div class="col-sm-9">
+                    <div class="col-sm-6">
+                        <textarea class="ts-text1 form-control" rows="1" placeholder="请填写方案名"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea class="ts-text2 form-control" rows="1" placeholder="请添加链接"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-default" role="cancel">取消</button>
+                    <button class="btn btn-primary" role="ac-save">保存</button>
+                </div>
+            </div>
+
+            <div class="create-handle">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                <span class="create-handle-label">添加整体解决方案</span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+<!-- 附件列表-->
+<form class="task-detail" enctype="multipart/form-data">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;附件内容</h6>
+        <div class="attachmentList">
+            <ul class="list">
+
+            </ul>
+            <div class="fileHandle">
+                <!--proejctkey 为字段名称限制-->
+                <input type="file" name="file" id="file">
+                <input style="display: none" type="text" name="projectKey" value="<% print('teamid/'+ teamId) %>">
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- 备注-->
+<form class="task-detail">
+    <div class="task-detail-wrap">
+        <h6 class="task-info-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;备注</h6>
+        <div class="reqCommentList">
+            <ul class="ac-list"></ul>
+
+            <div class="creator form-horizontal" style="display: block;">
+                <div class="col-sm-9">
+                    <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-default" role="cancel">取消</button>
+                    <button class="btn btn-primary" role="ac-save">保存</button>
+                </div>
+            </div>
+
+            <div class="create-handle">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                <span class="create-handle-label">添加备注</span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<form class="hide">
+    <input name="id" value="<%= id %>">
+    <input name="teamId" value="<%= teamId %>">
+    <input name="reqState" value="<%= reqState %>">
+</form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn" data-dismiss="modal">取消</button>
+    <button type="button" class="btn btn-primary" role="save">保存</button>
+</div>
+</div>
+</div>

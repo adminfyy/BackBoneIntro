@@ -1,0 +1,47 @@
+<div class="task-priority p<%= priority %>"></div>
+
+<div class="tools">
+    <i class="fa fa-angle-double-up" aria-hidden="true" title="置顶"></i>
+    <i class="fa fa-angle-double-down" aria-hidden="true" title="置底"></i>
+</div>
+
+<div class="flex jc-space-between">
+    <span class="title-wrap">
+        <img class="icon" src="<%= rootPath %>/images/issueicon/<%= issueType %>.png">
+        <span class="title title-19"><%= subject %></span>
+    </span>
+    <div class="flex jc-space-between start">
+        <span class="story" title="故事点"><%= storyNum %></span>
+        <span class="assigner"><%= assigner %></span>
+    </div>
+</div>
+
+<div class="flex jc-space-between">
+    <div class="flex-item-wrap start">
+        <span class="date <%
+        var d = new Date();
+            d.setDate(d.getDate() - 1);
+            if (planPublishDate && new Date(planPublishDate) <= d && resolved != 1) print('red')
+        %>">
+            <%= planPublishDate ? new Date(planPublishDate).format("yyyy-MM-dd") + '&nbsp截止': '未设定截止时间' %>
+        </span>
+
+        <% if(emergency == 1) print ('<span class="tags">紧急&nbsp</span>') %>
+
+        <% if(tagName){ %>
+        <div class="flex-item-wrap" title="<%= tagName %>">
+            <%
+            var tags = tagName.split(',');
+            var tagEls = tags.map(function(tag){
+            return '<span class="tags">' + tag + '</span>'
+            })
+            print(tagEls.splice(0,2).join(''))
+            %>
+        </div>
+        <% } %>
+    </div>
+    <%= !Number(parentId) ?
+    (reqState == 2 ? '': '<span class="split">拆分</span>') :
+    '<span class="parent">父需求</span>'
+    %>
+</div>

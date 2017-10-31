@@ -1,0 +1,40 @@
+<div class="creator-wrap task-creator-handler-wrap" style="padding: 0;margin-top: 8px;">
+    <div class="creator-handler">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        <span>添加任务</span>
+    </div>
+    <form class="form creator" style="display: none;">
+
+        <div class="form-group">
+            <input class="form-control" name="title" placeholder="请输入任务标题（必填）"/>
+        </div>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input name="taskType" type="radio" value="0" checked style="
+    margin-top: 3px;
+    margin-bottom: 0px;
+    height: initial;">任务
+            </label>
+            <label class="radio-inline">
+                <input name="taskType" type="radio" value="1" style="
+    margin-top: 3px;
+    margin-bottom: 0px;
+    height: initial;">bug
+            </label>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="description" placeholder="添加描述"/>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="estimatedTime" placeholder="估算小时" type="number" min="0"/>
+        </div>
+
+        <div class="form-group">
+            <select class="form-control" name="taskPartyList" id="taskPartyList" multiple="multiple"></select>
+        </div>
+
+        <button class="btn btn-primary create-task">保存</button>
+        <button class="btn btn-default create-cancel">取消</button>
+    </form>
+</div>

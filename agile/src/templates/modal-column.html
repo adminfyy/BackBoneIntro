@@ -1,0 +1,36 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="taskDetailLabel"><% id === null ?print('新增列表'):print('编辑列表') %></h4>
+        </div>
+        <div class="modal-body" style="max-height: 400px;overflow: auto">
+            <form class="form-horizontal">
+
+                <input type="hidden" name="smBoardId" value="<%= smBoardId %>">
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-3 control-label text-right"><span
+                            style="color: red;">*</span>列名称：</label>
+                    <div class="col-sm-9">
+                        <input autocomplete="off" id="name" name="name" class="form-control" value="<%= name %>" <% if(!IsEdit) print('readonly') %>/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dod" class="col-sm-3 control-label text-right">DOD：</label>
+                    <div class="col-sm-9">
+                        <textarea id="dod" name="dod" class="form-control" rows="5"><%= dod %></textarea>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" role="save">保存</button>
+        </div>
+    </div>
+</div>

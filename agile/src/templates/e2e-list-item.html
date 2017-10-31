@@ -1,0 +1,54 @@
+<% if(childReqList.length > 1){ %>
+<tr id="<%= id%>">
+    <td class="main-info" rowspan="<%= childReqList.length + 1%>"><%= planPublishDate %></td>
+    <td class="main-info" rowspan="<%= childReqList.length + 1%>"><%= pmsCreateTime %></td>
+    <td class="main-info" rowspan="<%= childReqList.length + 1%>"><a href="<%= pmsUrl %>" target="_blank"><%= pmsId
+        %></a></td>
+    <td class="main-info" rowspan="<%= childReqList.length + 1%>">
+        <a href="<%= pmsUrl %>" target="_blank"><%= subject %></a>
+        <%= isMultiComponent ? '<span class="tags 跨">跨</span>' : '' %>
+        <%= emergency ? '<span class="tags 急">急</span>' : '' %>
+        <%= isVip3 ? '<span class="tags VIP3">VIP3</span>' : '' %>
+        <%= isMultiVersion ? '<span class="tags 跨" title="' + versionName + '">多版本</span>' : '' %>
+    </td>
+</tr>
+<% childReqList.forEach(function(item, index){ %>
+<tr id="<%= item.id %>" child>
+    <td class="state"><%= item.po %></td>
+    <td class="state state-0"></td>
+    <td class="state state-1"></td>
+    <td class="state state-2"></td>
+    <td class="state state-3"></td>
+    <td class="state state-4"></td>
+    <td class="state state-5"></td>
+    <td class="state state-6"></td>
+    <td class="state state-7"></td>
+    <td class="state state-8"></td>
+    <td class="state state-9"></td>
+</tr>
+<%  })
+} else { %>
+<tr id="<%= id %>">
+    <td class="main-info"><%= planPublishDate %></td>
+    <td class="main-info"><%= pmsCreateTime %></td>
+    <td class="main-info"><a href="<%= pmsUrl %>" target="_blank"><%= pmsId %></a></td>
+    <td class="main-info">
+        <a href="<%= pmsUrl %>" target="_blank"><%= subject %></a>
+        <%= isMultiComponent ? '<span class="tags 跨">跨</span>' : '' %>
+        <%= emergency ? '<span class="tags 急">急</span>' : '' %>
+        <%= isVip3 ? '<span class="tags VIP3">VIP3</span>' : '' %>
+        <%= isMultiVersion ? '<span class="tags 跨" title="' + versionName + '">多版本</span>' : '' %>
+    </td>
+    <td class="state"><%= po %></td>
+    <td class="state state-0"></td>
+    <td class="state state-1"></td>
+    <td class="state state-2"></td>
+    <td class="state state-3"></td>
+    <td class="state state-4"></td>
+    <td class="state state-5"></td>
+    <td class="state state-6"></td>
+    <td class="state state-7"></td>
+    <td class="state state-8"></td>
+    <td class="state state-9"></td>
+</tr>
+<% } %>

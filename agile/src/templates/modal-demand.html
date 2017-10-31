@@ -1,0 +1,56 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="taskDetailLabel">JIRA需求池 详情页     <span id="task-detail-title">
+            <a href="<%= jiraUrl %>/browse/<%= issueKey %>" target="_blank"> JIRA[<%= issueKey %>]</a></span></h4>
+            <hr/>
+            <h2><span>主题：</span> <span id="task-detail-title"><%= summary %></span>
+            </h2>
+        
+        </div>
+        <form class="modal-body">
+            <div class="task-detail">
+                <div class="task-detail-wrap" style="background-color:transparent">
+                    <h6 class="task-info-title">执行者</h6>
+                    <input class="form-control border-transparent " name="assignee"  id="assignee" value="<%= assignee %>" readonly>
+                </div>
+
+                <div class="task-detail-wrap" style="background-color:transparent">
+                    <h6 class="task-info-title">计划发布时间</h6>
+                    <input class="form-control border-transparent" name="planPublishDate" value="<%= planPublishDate %>" readonly>
+                </div>
+
+                <div class="task-detail-wrap" style="background-color:transparent">
+                    <h6 class="task-info-title">优先级</h6>
+                    <input class="form-control border-transparent" name="priority"  id="priority" value="<%= priority %>" readonly>
+                </div>
+
+                <div class="task-detail-wrap" style="background-color:transparent">
+                    <h6 class="task-info-title">类型</h6>
+                    <input class="form-control border-transparent" name="issuetype" id="issuetype" value="<%= issuetype %>" readonly>
+                </div>
+                
+                <div class="task-detail-wrap" style="background-color:transparent">
+                    <h6 class="task-info-title">是否紧急</h6>
+                    <input class="form-control border-transparent" name="emergency" id="emergency" value="<%= (emergency != '')? emergency: '否'%>" readonly>
+                </div>
+                
+                <div class="task-detail-wrap" style="background-color:transparent">
+                    <h6 class="task-info-title">原始提出者</h6>
+                    <input class="border-transparent" name="submitter" id="submitter" value="<%= submitter %>" readonly>
+                </div>
+            </div>
+
+            <div class="task-detail" >
+                <div style="padding: 1em 1em;background-color:transparent"   class="task-detail-wrap border-transparent" name="task-content">
+                   <div class="border-transparent" name="description" id="description" style="background-color:transparent" ><%= description %></div>
+                </div>
+            </div>
+
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</div>

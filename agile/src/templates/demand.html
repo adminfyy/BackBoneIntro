@@ -1,0 +1,33 @@
+<div class="task-priority <%= priority %>"></div>
+
+<div class="tools">
+	<i class="fa fa-angle-double-up" aria-hidden="true" title="置顶"></i>
+	<i class="fa fa-angle-double-down" aria-hidden="true" title="置底"></i>
+</div>
+
+<div class="flex jc-space-between">
+    <span class="title-wrap">
+        <img class="icon" src="<%= rootPath %>/images/issueicon/<%= issueType %>.png" alt="">
+        <span class="title"><%= summary %></span>
+    </span>
+    <span class="assigner"><%= assignee %></span>
+</div>
+
+<div class="flex start jc-space-between">
+    	<% 
+    	if(planFinishDate)
+    	{
+	    	var d = new Date(); d.setDate(d.getDate()-1); 
+	        if(new Date(planFinishDate) <= d)   
+	            { print ('<span class="date red" >')} 
+	        else    
+	        	{print ('<span class="date">')}        
+	        print(new Date(planFinishDate).format("yyyy-MM-dd") + '&nbsp截止</span>')
+        }
+       if(typeof(emergency) != "undefined")
+    	{
+	    	if(emergency == "是")   
+	        { print ('<span class="tags" >紧急&nbsp</span>')} 
+        }
+        %>
+</div>

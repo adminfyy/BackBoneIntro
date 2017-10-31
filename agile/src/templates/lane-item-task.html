@@ -1,0 +1,15 @@
+<div class="flex jc-space-between">
+    <span class="title no-margin"><%= title %></span>
+    <span class="party"><%= party %></span>
+</div>
+
+<div class="flex jc-space-between task-flex-end">
+    <span style="display: none;"> <%= estimatedTime %> 小时</span>
+    <span>
+    <% if((isBug==1) && (taskType==0)) print(' <span class="fa fa-bug" style="color: green"></span> ') %>
+    <% if(taskType==1) print(' <span class="fa fa-bug" style="color: red"></span> ') %>
+    <% if(blockNum) print(' <span class="glyphicon glyphicon-alert" style="color: red"></span> ') %>
+    <i class="glyphicon glyphicon-trash" aria-hidden="true" title="删除任务" role="delete"></i>
+    </span>
+</div>
+

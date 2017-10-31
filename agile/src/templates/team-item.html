@@ -1,0 +1,17 @@
+<h4 class="list-group-item-heading"><%= teamName %></h4>
+<p class="list-group-item-text">
+    <span class="comName"><%= componentName %></span>
+    <span><%= orgName %></span>
+</p>
+<div class="glyphicon glyphicon-trash" role="delete" title="删除"></div>
+
+<div class="pendant"><%= templateName %></div>
+<style>
+    span.comName {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 20em;
+        display: inline-block;
+    }
+</style>

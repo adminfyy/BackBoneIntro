@@ -1,0 +1,102 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content task-detail-bg">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="taskDetailLabel">产品列表</h4>
+        </div>
+        <div class="modal-body" style="max-height: 400px;overflow: auto">
+
+            <form class="task-detail border-transparent">
+                <div class="task-detail-wrap" style="margin-bottom: 0px">
+                    <input type="text" id="title" name="title" class="form-control border-transparent"
+                           value="<%= title %>">
+                </div>
+            </form>
+
+            <!--描述信息-->
+            <form class="task-detail">
+                <div class="task-detail-wrap">
+                    <textarea class="border-transparent" style="margin: 1em;" name="description"
+                              id="description" placeholder="请输入描述信息"><%= description %></textarea>
+                </div>
+            </form>
+
+
+            <!--Bug-->
+            <form class="task-detail">
+                <div class="task-detail-wrap by-row" style="align-items: center;padding: 1em;">
+                    <label>是否有BUG:&nbsp;</label>
+                    <input class="switcher" type="checkbox" value="1" id="isBug" name="isBug"<%if(isBug)print('checked')
+                    %> />
+                </div>
+            </form>
+
+            <!--taskType-->
+            <form class="task-detail">
+                <div class="task-detail-wrap by-row" style="align-items: center;padding: 1em;">
+                    <label class="control-label">任务类型:</label>
+                    <div class="col-md-1">
+                        <input name="taskType" type="radio" value="0" checked>任务
+                    </div>
+                    <div class="col-md-1">
+                        <input name="taskType" type="radio" value="1">bug
+                    </div>
+                </div>
+            </form>
+
+
+            <!--阻碍项 信息-->
+            <form class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title"><span class="glyphicon glyphicon-link"></span>&nbsp;阻碍项</h6>
+                    <div class="blockList">
+                        <ul class="ac-list"></ul>
+
+                        <div class="creator form-horizontal" style="display: block;">
+                            <div class="col-sm-9">
+                                <textarea class="ac-text form-control col-sm-10" rows="1"></textarea>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-default" role="cancel">取消</button>
+                                <button class="btn btn-primary" role="ac-save">保存</button>
+                            </div>
+                        </div>
+
+                        <div class="create-handle">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="create-handle-label">添加阻碍项</span>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+            <!--描述信息-->
+            <form class="task-detail form-inline">
+                <div class="task-detail-wrap by-row" style="align-items: center;padding-left: 1em;">
+                    <span>估计时间:</span>
+                    <input type="number" min="0" class="border-transparent" style="width: 4em;" name="estimatedTime"
+                           value="<%= estimatedTime %>">
+                    <label>(小时)</label>
+                </div>
+            </form>
+
+            <form class="task-detail">
+                <div class="task-detail-wrap">
+                    <h6 class="task-info-title">执行者</h6>
+                    <select type="number" id="taskPartyList" name="taskPartyList" multiple="multiple"></select>
+                </div>
+            </form>
+
+            <form class="hide">
+                <input name="id" value="<%= id %>"/>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" role="save-task">保存</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="modal-dialog">
+    <div class="modal-content" style="background: #f7f7f7;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><% id === null ? print('新建团队') : print('编辑团队') %></h4>
+        </div>
+
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="teamName" class="col-sm-3  control-label text-right"><span style="color: red;">*</span>团队名称：</label>
+                    <div class="col-sm-9">
+                        <input autocomplete="off" type="text" id="teamName" name="teamName" class="form-control"
+                               value="<%= teamName %>"/>
+                    </div>
+                </div>
+
+                <div class="form-group" style="position: relative;">
+                    <label for="component" class="col-sm-3  control-label text-right"><span style="color: red;">*</span>所属组件：</label>
+                    <div class="col-sm-9">
+                        <span id="component" class="team-component"><i class="glyphicon glyphicon-wrench"></i></span>
+                        <ul class="ztree" id="componentName" name="componentName"></ul>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none">
+                    <label for="orgId" class="col-sm-3  control-label text-right"><span style="color: red;">*</span>所属部门：</label>
+                    <div class="col-sm-9">
+                        <select name="orgId" id="orgId" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="templateId" class="col-sm-3  control-label text-right"><span
+                            style="color: red;">*</span>看板模板：</label>
+                    <div class="col-sm-9">
+                        <select name="templateId" id="templateId"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="smIdList" class="col-sm-3  control-label text-right">Scrum Master：</label>
+                    <div class="col-sm-9">
+                        <select name="smIdList" id="smIdList" class="form-control" multiple="multiple"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="poIdList" class="col-sm-3  control-label text-right">产品经理：</label>
+                    <div class="col-sm-9">
+                        <select name="poIdList" id="poIdList" class="form-control" multiple="multiple"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberIdList" class="col-sm-3  control-label text-right">团队成员：</label>
+                    <div class="col-sm-9">
+                        <select name="memberIdList" id="memberIdList" class="form-control" multiple="multiple"></select>
+                    </div>
+                </div>
+                <% if(id !== null){ %>
+                <input type="hidden" value="<%= id %>" name="id">
+                <% } %>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" role="submit">保存</button>
+            <button class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+    </div>
+</div>
